@@ -7,7 +7,7 @@
         {
             "name": "Unity Editor",
             "type": "unity",
-            "path": "/c:/Users/liu/Desktop/Together/Library/EditorInstance.json",
+            "path": "/home/liu/Desktop/Together/Library/EditorInstance.json",
             "request": "launch"
         },
         {

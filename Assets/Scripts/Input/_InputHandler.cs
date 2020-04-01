@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputHandler : MonoBehaviour
+public class _InputHandler : MonoBehaviour
 {
-    protected static InputHandler s_Instance;
-    public static InputHandler Instance
+    protected static _InputHandler s_Instance;
+    public static _InputHandler Instance
     {
         get { return s_Instance; }
     }
@@ -38,10 +38,10 @@ public class InputHandler : MonoBehaviour
     [SerializeField]
     protected static readonly Dictionary<ButtonType, KeyCode> keyDict = new Dictionary<ButtonType, KeyCode>
     {
-        {ButtonType.LeftButton,KeyCode.LeftArrow},
-        {ButtonType.RightButton,KeyCode.RightArrow},
-        {ButtonType.JumpButton,KeyCode.C},
-        {ButtonType.ShootButton,KeyCode.X},
+        {ButtonType.LeftButton,KeyCode.A},
+        {ButtonType.RightButton,KeyCode.D},
+        {ButtonType.JumpButton,KeyCode.J},
+        {ButtonType.ShootButton,KeyCode.K},
     };
 
 

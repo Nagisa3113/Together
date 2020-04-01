@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
 
     #region param
-    // public event Action<RaycastHit2D> onControllerCollidedEvent;
+    public event Action<RaycastHit2D> onControllerCollidedEvent;
     public event Action<Collider2D> onTriggerEnterEvent;
     public event Action<Collider2D> onTriggerExitEvent;
 
@@ -26,9 +26,8 @@ public class PlayerController : MonoBehaviour
     bool m_Grounded;
 
     bool m_FacingRight = true;
-    //TODOs
+    //TODO
     public float gravity;
-    InputHandler inputHandler;
 
     PlayerLight playerLight;
     PlayerBullet playerBullet;
@@ -43,6 +42,7 @@ public class PlayerController : MonoBehaviour
         playerLight = GetComponentInChildren<PlayerLight>();
         playerBullet = GetComponentInChildren<PlayerBullet>();
         gravity = m_Rigidbody2D.gravityScale;
+        DontDestroyOnLoad(this.gameObject);
     }
 
     void Start()
@@ -52,11 +52,19 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isLocalPlayer) return;
+        if (isLocalPlayer)
+        {
+            Shoot(InputHandler.Instance.Shoot);
+            Move(InputHandler.Instance.HorizontalAxis.Value);
+            Jump(InputHandler.Instance.Jump);
+        }
+        else if (!GameFacade.Instance.IsConnected)
+        {
+            Shoot(_InputHandler.Instance.Shoot);
+            Move(_InputHandler.Instance.HorizontalAxis.Value);
+            Jump(_InputHandler.Instance.Jump);
+        }
 
-        Shoot(InputHandler.Instance.Shoot);
-        Move(InputHandler.Instance.HorizontalAxis.Value);
-        Jump(InputHandler.Instance.Jump);
     }
 
 
@@ -92,13 +100,16 @@ public class PlayerController : MonoBehaviour
 
     void Move(float move)
     {
-
+        animator.SetBool("walk",Mathf.Abs(move)>0);
         m_Rigidbody2D.velocity = new Vector2(move * m_MoveSpeed, m_Rigidbody2D.velocity.y);
-        //Flip
+
         if (move > 0 && !m_FacingRight || move < 0 && m_FacingRight)
         {
             m_FacingRight = !m_FacingRight;
-            spriteRenderer.flipX = !spriteRenderer.flipX;
+            Vector3 sc=this.transform.localScale;
+            sc.x*=-1;
+            this.transform.localScale=sc;
+            //spriteRenderer.flipX = !spriteRenderer.flipX;
         }
 
     }
@@ -115,7 +126,8 @@ public class PlayerController : MonoBehaviour
 
         if (collision.collider.CompareTag("Death") || collision.collider.CompareTag("Insect"))
         {
-            ///TODO PlayerManager.Instance.GameOver();
+            //TODO 
+            //PlayerManager.Instance.GameOver();
         }
 
         if (Vector2.Angle(collision.contacts[0].normal, Vector2.up) < 45)
