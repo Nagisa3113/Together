@@ -23,10 +23,10 @@ public class MovableObject : MonoBehaviour
     {
         t1 = this.transform.position + tf1;
         t2 = this.transform.position + tf2;
-        if (GameFacade.Instance != null)
-        {
-            GameFacade.Instance.movableObjects.Add(this);
-        }
+        // if (GameFacade.Instance != null)
+        // {
+        //     GameFacade.Instance.movableObjects.Add(this);
+        // }
     }
 
     void Update()
