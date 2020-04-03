@@ -7,11 +7,11 @@ using Common;
 
 public class ClientManager : BaseManager
 {
-    private const string IP = "127.0.0.1";
-    private const int PORT = 6688;
+    const string IP = "127.0.0.1";
+    const int PORT = 6688;
 
-    private Socket clientSocket;
-    private Message msg = new Message();
+    Socket clientSocket;
+    Message msg = new Message();
 
     public ClientManager(GameFacade facade) : base(facade)
     {
@@ -35,11 +35,11 @@ public class ClientManager : BaseManager
     }
 
 
-    private void Start()
+    void Start()
     {
         clientSocket.BeginReceive(msg.Data, msg.StartIndex, msg.RemainSize, SocketFlags.None, ReceiveCallback, null);
     }
-    private void ReceiveCallback(IAsyncResult ar)
+    void ReceiveCallback(IAsyncResult ar)
     {
         try
         {
@@ -54,7 +54,7 @@ public class ClientManager : BaseManager
             Debug.Log(e);
         }
     }
-    private void OnProcessDataCallback(ActionCode actionCode, string data)
+    void OnProcessDataCallback(ActionCode actionCode, string data)
     {
         facade.HandleReponse(actionCode, data);
     }

@@ -8,8 +8,8 @@ using System.Linq;
 public class Message
 {
 
-    private byte[] data = new byte[1024];
-    private int startIndex = 0;//我们存取了多少个字节的数据在数组里面
+    byte[] data = new byte[1024];
+    int startIndex = 0;//我们存取了多少个字节的数据在数组里面
 
     //public void AddCount(int count)
     //{

@@ -1,16 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
-public class MoveRequest:BaseRequest
+public class MoveRequest : BaseRequest
 {
-    private Transform localPlayerTransform;
-    private int syncRate = 30;
-    private Transform remotePlayerTransform;
-    private bool isSyncRemotePlayer = false;
-    private Vector3 pos;
-    private Vector3 rotation;
-    private float forward;
+    Transform localPlayerTransform;
+    int syncRate = 30;
+    Transform remotePlayerTransform;
+    bool isSyncRemotePlayer = false;
+    Vector2 pos;
+    //  Vector3 rotation;
+
+    PlayerController localPlayer;
+    PlayerController remotePlayer;
+
+
+    bool m_FacingRight;
+    bool anim_walk;
 
     public override void Awake()
     {
@@ -18,11 +25,11 @@ public class MoveRequest:BaseRequest
         base.Awake();
     }
 
-    private void Start()
+    void Start()
     {
         InvokeRepeating("SyncLocalPlayer", 1f, 1f / syncRate);
     }
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (isSyncRemotePlayer)
         {
@@ -30,38 +37,50 @@ public class MoveRequest:BaseRequest
             isSyncRemotePlayer = false;
         }
     }
+
+
     public MoveRequest SetLocalPlayer(Transform localPlayerTransform)
     {
         this.localPlayerTransform = localPlayerTransform;
+        this.localPlayer = localPlayerTransform.GetComponent<PlayerController>();
         return this;
     }
     public MoveRequest SetRemotePlayer(Transform remotePlayerTransform)
     {
         this.remotePlayerTransform = remotePlayerTransform;
+        this.remotePlayer = remotePlayerTransform.GetComponent<PlayerController>();
         return this;
     }
-    private void SyncLocalPlayer()
+
+
+    void SyncLocalPlayer()
     {
-        SendRequest(localPlayerTransform.position.x, localPlayerTransform.position.y, localPlayerTransform.position.z,
-            localPlayerTransform.eulerAngles.x, localPlayerTransform.eulerAngles.y, localPlayerTransform.eulerAngles.z);
+        SendRequest(localPlayerTransform.position.x, localPlayerTransform.position.y,
+        localPlayer.m_FacingRight, localPlayer.anim_walk);
+        // localPlayerTransform.eulerAngles.x, localPlayerTransform.eulerAngles.y, localPlayerTransform.eulerAngles.z);
     }
-    private void SyncRemotePlayer()
+    void SyncRemotePlayer()
     {
         remotePlayerTransform.position = pos;
-        remotePlayerTransform.eulerAngles = rotation;
-       // remotePlayerAnim.SetFloat("Forward", forward);
+        // remotePlayerTransform.eulerAngles = rotation;
+        remotePlayer.m_FacingRight = this.m_FacingRight;
+        remotePlayer.anim_walk = this.anim_walk;
+
     }
 
-    private void SendRequest(float x, float y, float z, float rotationX, float rotationY, float rotationZ)
+    void SendRequest(float x, float y, bool dir, bool anim_walk)
     {
-        string data = string.Format("{0},{1},{2}|{3},{4},{5}", x, y, z, rotationX, rotationY, rotationZ);
+        string data = string.Format("{0},{1}|{2}|{3}", x, y, dir, anim_walk);
         base.SendRequest(data);
     }
     public override void OnResponse(string data)
-    {   
+    {
         string[] strs = data.Split('|');
-        pos = Extension.ParseVector3(strs[0]);
-        rotation = Extension.ParseVector3(strs[1]);
+        pos = Extension.ParseVector2(strs[0]);
+        this.m_FacingRight = Boolean.Parse(strs[1]);
+        this.anim_walk = Boolean.Parse(strs[2]);
+
+        // rotation = Extension.ParseVector3(strs[1]);
         isSyncRemotePlayer = true;
     }
 

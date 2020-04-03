@@ -12,7 +12,7 @@ public class _InputHandler : MonoBehaviour
 
 
     [SerializeField]
-    int jumpBuffer = 8, shootBuffer = 3;
+    int jumpBuffer = 18, shootBuffer = 10;
 
     int jumpCounter, shootCounter;
 
@@ -62,7 +62,7 @@ public class _InputHandler : MonoBehaviour
     }
 
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         HorizontalAxis.AxisFiexedUpdate();
 

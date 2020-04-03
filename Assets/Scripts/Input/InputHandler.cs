@@ -12,7 +12,7 @@ public class InputHandler : MonoBehaviour
 
 
     [SerializeField]
-    int jumpBuffer = 8, shootBuffer = 3;
+    int jumpBuffer = 18, shootBuffer = 10;
 
     int jumpCounter, shootCounter;
 
@@ -52,6 +52,7 @@ public class InputHandler : MonoBehaviour
         else
             throw new UnityException("There cannot be more than one PlayerInput script.  " +
                 "The instances are " + s_Instance.name + " and " + name + ".");
+        DontDestroyOnLoad(this.gameObject);
     }
 
     void Update()
@@ -62,11 +63,20 @@ public class InputHandler : MonoBehaviour
     }
 
 
-    private void FixedUpdate()
+    public void RefreshJumpBuffer()
+    {
+        jumpCounter = 0;
+    }
+    public void RefreshShootBuffer()
+    {
+        shootCounter = 0;
+    }
+
+    void FixedUpdate()
     {
         HorizontalAxis.AxisFiexedUpdate();
 
-        if (JumpButton.Held)
+        if (JumpButton.Down)
         {
             jumpCounter = jumpBuffer;
         }
@@ -74,7 +84,7 @@ public class InputHandler : MonoBehaviour
         {
             jumpCounter--;
         }
-        if (ShootButton.Held)
+        if (ShootButton.Down)
         {
             shootCounter = shootBuffer;
         }

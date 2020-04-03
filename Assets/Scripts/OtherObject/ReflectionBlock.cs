@@ -6,17 +6,17 @@ public class ReflectionBlock : MonoBehaviour
 {
     Transform block;
 
-    private void Awake()
+    void Awake()
     {
         block = transform.GetChild(0);
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void Update()
     {
-        //if (Input.GetKey(KeyCode.Space))
-        //{
-        block.transform.Rotate(0, 0, 2f * Time.deltaTime);
-        //}
+        if (Input.GetKey(KeyCode.Space))
+        {
+            block.transform.Rotate(0, 0, 2f * Time.deltaTime);
+        }
     }
 
 }

@@ -1,30 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Common;
 public class GameFacade : MonoBehaviour
 {
-    [HideInInspector]
+    //[HideInInspector]
     public List<MovableObject> movableObjects;
 
-    private static GameFacade _instance;
-    public static GameFacade Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = GameObject.Find("GameFacade").GetComponent<GameFacade>();
-            }
-            return _instance;
-        }
-    }
+    static GameFacade _instance;
+    public static GameFacade Instance;
+    // {
+    //     get
+    //     {
+    //         if (_instance == null)
+    //         {
+    //             _instance = GameObject.Find("GameFacade").GetComponent<GameFacade>();
+    //         }
+    //         return _instance;
+    //     }
+    // }
 
     public SavePoint lastSave;
 
-    private PlayerManager playerMng;
-    private RequestManager requestMng;
-    private ClientManager clientMng;
+    PlayerManager playerMng;
+    RequestManager requestMng;
+    ClientManager clientMng;
 
     public bool StartSyncSymble = false;
 
@@ -34,39 +35,56 @@ public class GameFacade : MonoBehaviour
 
     void Awake()
     {
+        Instance = this;
         clientMng = new ClientManager(this);
         requestMng = new RequestManager(this);
         playerMng = new PlayerManager(this);//要在最后
-
+        DontDestroyOnLoad(this.gameObject);
 
         Screen.SetResolution(640, 480, false);
     }
 
-    
-    private void Update()
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    void Start()
+    {
+        foreach (MovableObject m in movableObjects)
+        {
+            m.StartCoroutine(m.Move());
+        }
+    }
+
+    void Update()
     {
         if (StartSyncSymble)
         {
             StartPlaying();
             StartSyncSymble = false;
         }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 
-    private void OnDestroy()
-    {
-        DestroyManager();
-    }
+    // void OnDestroy()
+    // {
+    //     DestroyManager();
+    // }
 
-    private void InitManager()
-    {
-        clientMng.OnInit();
-        playerMng.OnInit();
-    }
-    private void DestroyManager()
-    {
-        playerMng.OnDestroy();
-        clientMng.OnDestroy();
-    }
+    // void InitManager()
+    // {
+    //     clientMng.OnInit();
+    //     playerMng.OnInit();
+    // }
+    // void DestroyManager()
+    // {
+    //     playerMng.OnDestroy();
+    //     clientMng.OnDestroy();
+    // }
 
 
     public void AddRequest(ActionCode actionCode, BaseRequest request)
@@ -103,20 +121,20 @@ public class GameFacade : MonoBehaviour
     {
         playerMng.GetLocalPlayer();
         playerMng.AddRequestScript();
-        // foreach (MovableObject m in movableObjects)
-        // {
-        //     m.StartCoroutine(m.Move());
-        // }
+        foreach (MovableObject m in movableObjects)
+        {
+            m.StartCoroutine(m.Move());
+        }
     }
 
     public void GameOver()
     {
-        //private GameObject currentRoleGameObject;
-        //private GameObject playerSyncRequest;
-        //private GameObject remoteRoleGameObject;
+        // GameObject currentRoleGameObject;
+        // GameObject playerSyncRequest;
+        // GameObject remoteRoleGameObject;
 
-        //private ShootRequest shootRequest;
-        //private AttackRequest attackRequest;
+        // ShootRequest shootRequest;
+        // AttackRequest attackRequest;
 
         // GameObject.Destroy(currentRoleGameObject);
         // GameObject.Destroy(playerSyncRequest);

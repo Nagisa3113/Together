@@ -6,9 +6,9 @@ using Common;
 public class ShootReqest : BaseRequest
 {
 
-    private Transform remotePlayerTransform;
+    Transform remotePlayerTransform;
 
-    private bool isSyncRemotePlayer = false;
+    bool isSyncRemotePlayer = false;
 
     public override void Awake()
     {
@@ -16,7 +16,7 @@ public class ShootReqest : BaseRequest
         base.Awake();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (isSyncRemotePlayer)
         {
@@ -31,7 +31,7 @@ public class ShootReqest : BaseRequest
         return this;
     }
 
-    private void SyncRemotePlayer()
+    void SyncRemotePlayer()
     {
         remotePlayerTransform.GetComponent<PlayerController>().RemoteShoot();
     }

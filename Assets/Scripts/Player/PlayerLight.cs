@@ -21,7 +21,7 @@ public class PlayerLight : MonoBehaviour
 
     float distance;
 
-    private void Awake()
+    void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         light2D = GetComponent<Light2D>();
@@ -30,12 +30,12 @@ public class PlayerLight : MonoBehaviour
         self = this.transform.parent.transform;
     }
 
-    private void Start()
+    void Start()
     {
         target = PlayerManager.Instance.GetAnotherPlayerTransform(self);
     }
 
-    private void Update()
+    void Update()
     {
         distance = Vector2.Distance(self.position, target.position);
 

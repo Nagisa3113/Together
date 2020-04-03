@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
+// [ExecuteInEditMode]
 public class MovableObject : MonoBehaviour
 {
 
@@ -13,7 +13,7 @@ public class MovableObject : MonoBehaviour
     Vector3 t2;
 
     //[SerializeField]
-    float speed = 2f;
+    float speed = 1f;
 
     float i = 0;
     int t = 1;
@@ -23,15 +23,18 @@ public class MovableObject : MonoBehaviour
     {
         t1 = this.transform.position + tf1;
         t2 = this.transform.position + tf2;
-        // if (GameFacade.Instance != null)
-        // {
-        //     GameFacade.Instance.movableObjects.Add(this);
-        // }
+        if (GameFacade.Instance != null)
+        {
+            GameFacade.Instance.movableObjects.Add(this);
+        }
+
+        StartCoroutine("Move");
+
     }
 
     void Update()
     {
-        Debug.DrawLine(t1, t2);
+        Debug.DrawLine(this.transform.position + tf1, this.transform.position + tf2);
     }
 
 
@@ -65,9 +68,12 @@ public class MovableObject : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        t = -t;
+        if (!collision.gameObject.CompareTag("Player"))
+        {
+            t = -t;
+        }
     }
 
 

@@ -49,7 +49,6 @@ public class PlayerManager : BaseManager
     public void AddRequestScript()
     {
         // playerSyncRequest = new GameObject("PlayerSyncRequest");
-
         facade.gameObject.AddComponent<MoveRequest>().SetLocalPlayer(currentRoleGameObject.transform)
             .SetRemotePlayer(remoteRoleGameObject.transform);
 

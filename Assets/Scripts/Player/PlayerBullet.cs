@@ -17,7 +17,7 @@ public class PlayerBullet : MonoBehaviour
 
     public bool isActive;
 
-    private void Awake()
+    void Awake()
     {
         rg = GetComponent<Rigidbody2D>();
         col = GetComponent<CircleCollider2D>();
@@ -26,7 +26,7 @@ public class PlayerBullet : MonoBehaviour
         light2D = self.GetComponentInChildren<Light2D>();
     }
 
-    private void Start()
+    void Start()
     {
         target = PlayerManager.Instance.GetAnotherPlayerTransform(self);
         sr.enabled = false;
