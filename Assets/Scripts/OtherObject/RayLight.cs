@@ -16,7 +16,7 @@ public class RayLight : MonoBehaviour
 
     const int Infinity = 99;
 
-    int maxReflections = 2;
+    int maxReflections = 5;
     int currentReflections = 0;
 
     [SerializeField]

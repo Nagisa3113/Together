@@ -14,6 +14,7 @@ public class InputHandler : MonoBehaviour
     [SerializeField]
     int jumpBuffer = 18, shootBuffer = 10;
 
+    [SerializeField]
     int jumpCounter, shootCounter;
 
 
@@ -55,40 +56,36 @@ public class InputHandler : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+
     void Update()
     {
         JumpButton.Get();
         ShootButton.Get();
         HorizontalAxis.AxisUpdate();
-    }
 
-
-    public void RefreshJumpBuffer()
-    {
-        jumpCounter = 0;
-    }
-    public void RefreshShootBuffer()
-    {
-        shootCounter = 0;
-    }
-
-    void FixedUpdate()
-    {
-        HorizontalAxis.AxisFiexedUpdate();
-
+        //it should be placed here instead of FixedUpdate
         if (JumpButton.Down)
         {
             jumpCounter = jumpBuffer;
         }
-        else if (jumpCounter > 0)
-        {
-            jumpCounter--;
-        }
-        if (ShootButton.Down)
+        if (ShootButton.Held)
         {
             shootCounter = shootBuffer;
         }
-        else if (shootCounter > 0)
+    }
+
+  
+
+    public void FixedUpdate()
+    {
+        HorizontalAxis.AxisFiexedUpdate();
+       
+        if (jumpCounter > 0)
+        {
+            jumpCounter--;
+        }
+        
+        if (shootCounter > 0)
         {
             shootCounter--;
         }

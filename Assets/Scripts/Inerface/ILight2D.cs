@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-interface ILight2D : IInteractive
+interface ILight2D 
 {
     void Lighten();
     void UnLighten();

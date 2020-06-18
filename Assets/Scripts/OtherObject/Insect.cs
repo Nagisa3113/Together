@@ -20,13 +20,21 @@ public class Insect : MonoBehaviour
 
     public Vector3 tarPos;
 
-    float speed = 5f;
+    float speed = 4f;
 
     // Start is called before the first frame update
     void Start()
     {
-        tarPos = insectHome.points[index].position;
-        StartCoroutine(MoveToLight());
+        if (this.index == -1)
+        {
+            status = InsectStatus.Idle;
+        }
+        else
+        {
+            tarPos = insectHome.points[index].position;
+            StartCoroutine(MoveToLight());
+
+        }
     }
 
     // Update is called once per frame
@@ -66,6 +74,9 @@ public class Insect : MonoBehaviour
                 break;
         }
 
+
+        if (index == -1) return;
+
         if (Vector3.Distance(this.transform.position, tarPos) < 0.5f
             && insectHome.light2Ds[index].enabled == true)
         {
@@ -86,22 +97,24 @@ public class Insect : MonoBehaviour
     {
         Light2D appleLight = insectHome.apple.GetComponent<Light2D>();
 
-        while (Vector3.Distance(this.transform.position, insectHome.apple.position) > 0.5f
-            && insectHome.hasApple)
+        while (insectHome.hasApple)
         {
+            this.GetComponent<Collider2D>().enabled = false;
             this.transform.position = Vector3.MoveTowards(transform.position, insectHome.apple.position, speed * Time.deltaTime);
+            //appleLight.intensity -= 0.3f * Time.deltaTime;
             yield return 0;
         }
-        while (insectHome.hasApple && appleLight.intensity > 1)
-        {
-            appleLight.intensity -= 3f * Time.deltaTime;
-            yield return 0;
-        }
+        this.GetComponent<Collider2D>().enabled = true;
 
-        insectHome.hasApple = false;
-        insectHome.ResetApple();
 
         status = InsectStatus.Idle;
+        if (index != -1)
+        {
+            insectHome.hasApple = false;
+            insectHome.ResetApple();
+        }
+
+
     }
 
 

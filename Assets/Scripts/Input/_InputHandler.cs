@@ -54,31 +54,32 @@ public class _InputHandler : MonoBehaviour
                 "The instances are " + s_Instance.name + " and " + name + ".");
     }
 
-    void Update()
+    public void Update()
     {
         JumpButton.Get();
         ShootButton.Get();
         HorizontalAxis.AxisUpdate();
-    }
-
-
-    void FixedUpdate()
-    {
-        HorizontalAxis.AxisFiexedUpdate();
-
-        if (JumpButton.Held)
+        if (JumpButton.Down)
         {
             jumpCounter = jumpBuffer;
-        }
-        else if (jumpCounter > 0)
-        {
-            jumpCounter--;
         }
         if (ShootButton.Held)
         {
             shootCounter = shootBuffer;
         }
-        else if (shootCounter > 0)
+    }
+
+
+    public void FixedUpdate()
+    {
+        HorizontalAxis.AxisFiexedUpdate();
+
+        if (jumpCounter > 0)
+        {
+            jumpCounter--;
+        }
+
+        if (shootCounter > 0)
         {
             shootCounter--;
         }

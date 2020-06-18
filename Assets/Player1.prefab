@@ -128,7 +128,7 @@ MonoBehaviour:
   anim_walk: 0
   layerMask:
     serializedVersion: 2
-    m_Bits: 8448
+    m_Bits: 9472
 --- !u!95 &1691557536647461150
 Animator:
   serializedVersion: 3

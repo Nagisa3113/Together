@@ -11,13 +11,32 @@ public class SavePoint : MonoBehaviour, IInteractive
     public Vector3 t1;
     public Vector3 t2;
 
+    public Vector3 P1Pos
+    {
+        get
+        {
+            return this.transform.position + t1;
+        }
+    }
+    public Vector3 P2Pos
+    {
+        get
+        {
+            return this.transform.position + t2;
+        }
+    }
+
+    private void Start()
+    {
+        this.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
     public void Interactive()
     {
-        // var gm = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
-        // if (this.index > gm.lastSave.index)
-        // {
-        //     gm.lastSave = this;
-        // }
+        if (this.index > GameFacade.Instance.lastSave.index)
+        {
+            GameFacade.Instance.lastSave = this;
+        }
     }
 
     void Update()

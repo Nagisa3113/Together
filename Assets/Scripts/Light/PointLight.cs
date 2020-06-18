@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
 
-public class PointLight : MonoBehaviour, ILight2D
+public class PointLight : MonoBehaviour, ILight2D, IInteractive
 {
     public SpriteRenderer lightedSprite;
     public SpriteRenderer unlightedSprite;
@@ -13,7 +13,6 @@ public class PointLight : MonoBehaviour, ILight2D
     float outR;
     float inR;
     float intensity;
-    float timer = 0;
 
 
     [SerializeField]
@@ -41,8 +40,8 @@ public class PointLight : MonoBehaviour, ILight2D
     {
         lightedSprite.enabled = true;
         unlightedSprite.enabled = false;
-        light2D.enabled = true;
-        StartCoroutine(BecomeVisable());
+        if (light2D.enabled == false)
+            StartCoroutine(BecomeVisable());
     }
 
     public void UnLighten()
@@ -54,6 +53,7 @@ public class PointLight : MonoBehaviour, ILight2D
 
     IEnumerator BecomeVisable()
     {
+        float timer = 0;
         while (timer < maxTime)
         {
             light2D.enabled = true;

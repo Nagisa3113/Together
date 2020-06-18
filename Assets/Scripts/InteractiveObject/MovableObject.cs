@@ -48,9 +48,23 @@ public class MovableObject : MonoBehaviour
 
     public IEnumerator Move()
     {
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        Animator animator=null;
+        try
+        {
+            animator = GetComponent<Animator>();
+        }
+        catch(UnityException e)
+        {
+            Debug.Log(e);
+        }
         while (true)
         {
             t = i > 1 ? -1 : i < 0 ? 1 : t;
+            if(animator!=null)
+            {
+                sprite.flipX = t > 0;
+            }
             i += t * Time.deltaTime * speed / Vector3.Distance(t1, t2);
             this.transform.position = V3Lerp(t1, t2, Mathf.Clamp01(i));
             yield return 0;

@@ -1,22 +1,55 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class ReflectionBlock : MonoBehaviour
 {
-    Transform block;
+    bool isIn;
+    public Transform block;
 
-    void Awake()
+    private Camera cCamera;
+
+    private void Start()
     {
-        block = transform.GetChild(0);
+        cCamera = Camera.main;
     }
 
-    private void Update()
+    void OnTriggerEnter2D(Collider2D collider2D)
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (++GameFacade.Instance.tempname > 0)
         {
-            block.transform.Rotate(0, 0, 2f * Time.deltaTime);
+            cCamera.GetComponent<CinemachineBrain>().enabled = false;
+            cCamera.transform.position = new Vector3(6.5f, -3.3f, -10f);
+            cCamera.orthographicSize = 10f;
+        }
+
+    }
+    void OnTriggerStay2D(Collider2D collider2D)
+    {
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            block.transform.Rotate(0, 0, 3f * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            block.transform.Rotate(0, 0, -3f * Time.deltaTime);
+        }
+
+        cCamera.GetComponent<CinemachineBrain>().enabled = false;
+        cCamera.transform.position = new Vector3(6.5f, -3.3f, -10f);
+        cCamera.orthographicSize = 10f;
+    }
+
+    void OnTriggerExit2D(Collider2D collider2D)
+    {
+        if (--GameFacade.Instance.tempname == 0)
+        {
+            cCamera.GetComponent<CinemachineBrain>().enabled = true;
         }
     }
+
+
+
 
 }

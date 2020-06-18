@@ -13,31 +13,51 @@ public class InsectHome : MonoBehaviour
     public Transform apple;
     public bool hasApple;
 
-    public List<Transform> points = new List<Transform>();
-    public List<Light2D> light2Ds = new List<Light2D>();
-
+    public List<Transform> points;
+    public List<Light2D> light2Ds;
     int nums;
     float deltaTime = 4f;
+
+    bool isStart;
+
 
     // Start is called before the first frame update
     void Start()
     {
         applePos = apple.position;
-        StartCoroutine(Generate());
+        // StartCoroutine(Generate());
+    }
+    void Update()
+    {
+        if (light2Ds[0].enabled && light2Ds[1].enabled && light2Ds[2].enabled && light2Ds[3].enabled)
+        {
+            GameFacade.Instance.NextLevel();
+        }
+
+    }
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.CompareTag("Player") && isStart == false)
+        {
+            isStart = true;
+            StartCoroutine(Generate());
+
+        }
+
     }
 
 
-    void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D collider)
     {
-        if (collision.CompareTag("Apple"))
+        if (collider.CompareTag("Apple"))
         {
             hasApple = true;
         }
     }
 
-    void OnTriggerExit2D(Collider2D collision)
+    void OnTriggerExit2D(Collider2D collider)
     {
-        if (collision.CompareTag("Apple"))
+        if (collider.CompareTag("Apple"))
         {
             hasApple = false;
         }
@@ -45,7 +65,8 @@ public class InsectHome : MonoBehaviour
 
     IEnumerator Generate()
     {
-        while (nums < 4)
+
+        while (nums < points.Count)
         {
             Insect ins = Instantiate(Insect).GetComponent<Insect>();
             ins.transform.SetParent(this.transform);
@@ -56,6 +77,7 @@ public class InsectHome : MonoBehaviour
 
             yield return new WaitForSeconds(deltaTime);
         }
+
     }
 
     public void ResetApple()

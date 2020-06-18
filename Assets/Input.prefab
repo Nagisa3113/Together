@@ -48,8 +48,8 @@ MonoBehaviour:
   shootBuffer: 3
   HorizontalAxis:
     bufferCounter: 0
-    speedBuffer: 10
-    slowBuffer: 10
+    speedBuffer: 15
+    slowBuffer: 8
     moveCurve:
       serializedVersion: 2
       m_Curve:

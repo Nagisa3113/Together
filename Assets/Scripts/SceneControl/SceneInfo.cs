@@ -6,24 +6,31 @@ using Cinemachine;
 
 public class SceneInfo : MonoBehaviour
 {
-    public Transform p1;
-    public Transform p2;
-
+    public bool isDebug;
     public float intensity;
+    public List<SavePoint> savePoints;
 
+    PlayerController p1, p2;
 
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before
-    /// any of the Update methods is called the first time.
-    /// </summary>
     void Start()
     {
-        GameObject p1 = GameObject.Find("Player1");
-        GameObject p2 = GameObject.Find("Player2");
-        p1.transform.position = this.p1.position;
-        p2.transform.position = this.p2.position;
+        while (p1 == null || p2 == null)
+        {
+            p1 = PlayerManager.Instance.p1;
+            p2 = PlayerManager.Instance.p2;
+        }
+
+
+        if (!isDebug)
+        {
+            p1.transform.position = savePoints[0].P1Pos;
+            p2.transform.position = savePoints[0].P2Pos;
+        }
         p1.GetComponentInChildren<Light2D>().intensity = this.intensity;
         p2.GetComponentInChildren<Light2D>().intensity = this.intensity;
+        var facade = GameObject.Find("GameFacade").GetComponent<GameFacade>();
+        facade.savePoints = this.savePoints;
+        facade.lastSave = savePoints[0];
 
         var targetGroup = GameObject.Find("TargetGroup").GetComponent<CinemachineTargetGroup>();
         targetGroup.m_Targets[0].target = p1.transform;

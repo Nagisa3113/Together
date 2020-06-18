@@ -8,8 +8,7 @@ public class PlayerController : MonoBehaviour
 
     #region param
     //public event Action<RaycastHit2D> onControllerCollidedEvent;
-    public event Action<Collider2D> onTriggerEnterEvent;
-    public event Action<Collider2D> onTriggerExitEvent;
+    public event Action<Collider2D> OnInteractionEvent;
 
     public bool isLocalPlayer = false;
 
@@ -54,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
 
-        onTriggerEnterEvent += (collider2D) =>
+        OnInteractionEvent += (collider2D) =>
         {
             collider2D.GetComponent<IInteractive>()?.Interactive();
         };
@@ -76,7 +75,6 @@ public class PlayerController : MonoBehaviour
     {
 
         CheckGround();
-
         if (isLocalPlayer)
         {
             Shoot(InputHandler.Instance.Shoot);
@@ -117,7 +115,7 @@ public class PlayerController : MonoBehaviour
     {
         if (shoot && playerBullet.isActive == false)
         {
-            InputHandler.Instance.RefreshShootBuffer();
+            // InputHandler.Instance.RefreshShootBuffer();
             playerBullet.Spawn();
             animator.SetTrigger("shoot");
             if (GameFacade.Instance.IsStartGame)
@@ -131,7 +129,7 @@ public class PlayerController : MonoBehaviour
     {
         if (m_Grounded && jump)
         {
-            InputHandler.Instance.RefreshJumpBuffer();
+            // InputHandler.Instance.RefreshJumpBuffer();
             m_Grounded = false;
             m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_JumpVelcoity);
         }
@@ -169,8 +167,10 @@ public class PlayerController : MonoBehaviour
 
         if (collision.collider.CompareTag("Death") || collision.collider.CompareTag("Insect"))
         {
-            //TODO 
-            //PlayerManager.Instance.GameOver();
+            this.gameObject.SetActive(false);
+            GameObject.Find("Explosion").transform.position = this.transform.position;
+            GameObject.Find("Explosion").GetComponent<ParticleSystem>().Play();
+            GameFacade.Instance.GameOver();
         }
     }
 
@@ -196,13 +196,10 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider2D)
     {
-        onTriggerEnterEvent?.Invoke(collider2D);
+        OnInteractionEvent?.Invoke(collider2D);
     }
 
-    public void OnTriggerExit2D(Collider2D collider2D)
-    {
-        onTriggerExitEvent?.Invoke(collider2D);
-    }
+
 
     #endregion
 

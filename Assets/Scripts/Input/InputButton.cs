@@ -11,11 +11,13 @@ public enum ButtonType
     ShootButton,
 }
 
+[System.Serializable]
 public class InputButton
 {
    protected ButtonType buttonType;
    protected KeyCode kecyCode;
 
+    [SerializeField]
     public bool Down { get; protected set; }
     public bool Held { get; protected set; }
     public bool Up { get; protected set; }
@@ -37,8 +39,8 @@ public class InputButton
 
     public InputButton(ButtonType buttonType,KeyCode keyCode)
     {
-       this.buttonType=buttonType;
-       this.kecyCode=keyCode; 
+        this.buttonType = buttonType;
+        this.kecyCode = keyCode;
     }
 
     public void Get()
