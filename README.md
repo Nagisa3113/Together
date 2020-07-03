@@ -1,7 +1,5 @@
 # Together
 
-双人合作横板过关
-
 Player1：↑↓←→  C X
 
 Player2：WASD JK
