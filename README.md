@@ -1,7 +1,7 @@
 # Together
 
-Player1：←→:Move ↑↓:adjust direction(in Level2)	C:Jump X:Shoot
+Player1：←→↑↓:Move C:Jump X:Shoot
 
-Player2：AD:Move WS:adjust direction(in Level2)	J:Jump K:Shoot
+Player2：WASD:Move J:Jump K:Shoot
 
 ![](Level1.png)
