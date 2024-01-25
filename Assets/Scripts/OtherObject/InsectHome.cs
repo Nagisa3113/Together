@@ -31,7 +31,7 @@ public class InsectHome : MonoBehaviour
         if (!isLoading && light2Ds[0].enabled && light2Ds[1].enabled && light2Ds[2].enabled && light2Ds[3].enabled)
         {
             isLoading = true;
-            // this function will cause crash for unknown reason, use other trigger instead.
+            // this function will cause crash for unknown reason, use other instead.
             // GameFacade.Instance.NextLevel();
         }
     }

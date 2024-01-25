@@ -66,9 +66,7 @@ public class PlayerBullet : MonoBehaviour
         {
             DeActive();
         }
-
     }
-
 
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -77,10 +75,12 @@ public class PlayerBullet : MonoBehaviour
         {
             Destroy(collision.gameObject);
         }
+
         if (collision.transform.CompareTag("Apple"))
         {
             collision.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
         }
+
         if (collision.transform.CompareTag("Insect"))
         {
             Destroy(collision.gameObject);
@@ -88,6 +88,4 @@ public class PlayerBullet : MonoBehaviour
 
         this.DeActive();
     }
-
-
 }

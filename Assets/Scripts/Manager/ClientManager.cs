@@ -39,6 +39,7 @@ public class ClientManager : BaseManager
     {
         clientSocket.BeginReceive(msg.Data, msg.StartIndex, msg.RemainSize, SocketFlags.None, ReceiveCallback, null);
     }
+
     void ReceiveCallback(IAsyncResult ar)
     {
         try
@@ -54,17 +55,19 @@ public class ClientManager : BaseManager
             Debug.Log(e);
         }
     }
+
     void OnProcessDataCallback(ActionCode actionCode, string data)
     {
         facade.HandleReponse(actionCode, data);
     }
+
     public void SendRequest(RequestCode requestCode, ActionCode actionCode, string data)
     {
         byte[] bytes = Message.PackData(requestCode, actionCode, data);
         Debug.Log(bytes);
         clientSocket.Send(bytes);
-
     }
+
     public override void OnDestroy()
     {
         try

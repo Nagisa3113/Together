@@ -5,11 +5,11 @@ using System;
 using Common;
 using System.Text;
 using System.Linq;
+
 public class Message
 {
-
     byte[] data = new byte[1024];
-    int startIndex = 0;//我们存取了多少个字节的数据在数组里面
+    int startIndex = 0; //我们存取了多少个字节的数据在数组里面
 
     //public void AddCount(int count)
     //{
@@ -19,14 +19,17 @@ public class Message
     {
         get { return data; }
     }
+
     public int StartIndex
     {
         get { return startIndex; }
     }
+
     public int RemainSize
     {
         get { return data.Length - startIndex; }
     }
+
     /// <summary>
     /// 解析数据或者叫做读取数据
     /// </summary>
@@ -55,6 +58,7 @@ public class Message
             }
         }
     }
+
     //public static byte[] PackData(ActionCode actionCode, string data)
     //{
     //    byte[] requestCodeBytes = BitConverter.GetBytes((int)actionCode);

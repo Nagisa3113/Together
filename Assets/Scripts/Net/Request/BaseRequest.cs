@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
+
 public class BaseRequest : MonoBehaviour
 {
     protected RequestCode requestCode = RequestCode.None;
@@ -29,8 +30,13 @@ public class BaseRequest : MonoBehaviour
         facade.SendRequest(requestCode, actionCode, data);
     }
 
-    public virtual void SendRequest() { }
-    public virtual void OnResponse(string data) { }
+    public virtual void SendRequest()
+    {
+    }
+
+    public virtual void OnResponse(string data)
+    {
+    }
 
     public virtual void OnDestroy()
     {

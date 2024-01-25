@@ -21,5 +21,4 @@ public class Pushable : MonoBehaviour
             rg.velocity = new Vector2(speed * x, 0);
         }
     }
-
 }

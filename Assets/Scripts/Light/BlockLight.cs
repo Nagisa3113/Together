@@ -26,7 +26,7 @@ public class BlockLight : MonoBehaviour, ILight2D, IInteractive
         float x = rotatPivot.transform.position.x - light2D.gameObject.transform.position.x;
         light2D.gameObject.transform.position += new Vector3(2 * x, 0, 0);
         light2D.transform.localScale = new Vector3(-light2D.transform.localScale.x,
-         light2D.transform.localScale.y, light2D.transform.localScale.z);
+            light2D.transform.localScale.y, light2D.transform.localScale.z);
     }
 
     public void Lighten()
@@ -38,6 +38,4 @@ public class BlockLight : MonoBehaviour, ILight2D, IInteractive
     {
         light2D.enabled = false;
     }
-
-
 }

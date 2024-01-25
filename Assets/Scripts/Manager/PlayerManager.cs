@@ -59,6 +59,4 @@ public class PlayerManager : BaseManager
     {
         return currentRoleGameObject;
     }
-
-
 }

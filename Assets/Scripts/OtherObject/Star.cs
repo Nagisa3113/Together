@@ -13,7 +13,6 @@ public class Star : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (v.z > angle)
         {
             t = -1;
@@ -22,9 +21,8 @@ public class Star : MonoBehaviour
         {
             t = 1;
         }
+
         v.z += rotateSpeed * t * Time.deltaTime;
         transform.localEulerAngles = v;
     }
-
-
 }

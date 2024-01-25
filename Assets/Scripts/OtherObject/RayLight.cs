@@ -8,6 +8,7 @@ public enum RayColor
     BLUE,
     YELLOW,
 }
+
 [ExecuteInEditMode]
 [RequireComponent(typeof(LineRenderer))]
 public class RayLight : MonoBehaviour
@@ -19,8 +20,7 @@ public class RayLight : MonoBehaviour
     int maxReflections = 5;
     int currentReflections = 0;
 
-    [SerializeField]
-    Vector2 startPoint, direction;
+    [SerializeField] Vector2 startPoint, direction;
     List<Vector3> Points = new List<Vector3>();
     int defaultRayDistance = 30;
 
@@ -42,11 +42,10 @@ public class RayLight : MonoBehaviour
                 color = Color.yellow;
                 break;
         }
+
         GetComponent<SpriteRenderer>().color = color;
         lr.startColor = color;
         lr.endColor = color;
-
-
     }
 
     void Update()
@@ -87,7 +86,8 @@ public class RayLight : MonoBehaviour
         Vector2 inDirection = (hitData.point - origin).normalized;
         Vector2 newDirection = Vector2.Reflect(inDirection, hitData.normal);
 
-        var newHitData = Physics2D.Raycast(hitData.point + (newDirection * 0.0001f), newDirection * 100, defaultRayDistance, mask);
+        var newHitData = Physics2D.Raycast(hitData.point + (newDirection * 0.0001f), newDirection * 100,
+            defaultRayDistance, mask);
         if (newHitData)
         {
             ReflectFurther(hitData.point, newHitData);
@@ -97,5 +97,4 @@ public class RayLight : MonoBehaviour
             Points.Add(hitData.point + newDirection * defaultRayDistance);
         }
     }
-
 }

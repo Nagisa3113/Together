@@ -15,8 +15,7 @@ public class PointLight : MonoBehaviour, ILight2D, IInteractive
     float intensity;
 
 
-    [SerializeField]
-    float maxTime = 1f;
+    [SerializeField] float maxTime = 1f;
 
     void Awake()
     {
@@ -64,5 +63,4 @@ public class PointLight : MonoBehaviour, ILight2D, IInteractive
             yield return 0;
         }
     }
-
 }

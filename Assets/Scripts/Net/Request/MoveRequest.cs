@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
+
 public class MoveRequest : BaseRequest
 {
     Transform localPlayerTransform;
@@ -29,6 +30,7 @@ public class MoveRequest : BaseRequest
     {
         InvokeRepeating("SyncLocalPlayer", 1f, 1f / syncRate);
     }
+
     void FixedUpdate()
     {
         if (isSyncRemotePlayer)
@@ -45,6 +47,7 @@ public class MoveRequest : BaseRequest
         this.localPlayer = localPlayerTransform.GetComponent<PlayerController>();
         return this;
     }
+
     public MoveRequest SetRemotePlayer(Transform remotePlayerTransform)
     {
         this.remotePlayerTransform = remotePlayerTransform;
@@ -56,16 +59,16 @@ public class MoveRequest : BaseRequest
     void SyncLocalPlayer()
     {
         SendRequest(localPlayerTransform.position.x, localPlayerTransform.position.y,
-        localPlayer.m_FacingRight, localPlayer.anim_walk);
+            localPlayer.m_FacingRight, localPlayer.anim_walk);
         // localPlayerTransform.eulerAngles.x, localPlayerTransform.eulerAngles.y, localPlayerTransform.eulerAngles.z);
     }
+
     void SyncRemotePlayer()
     {
         remotePlayerTransform.position = pos;
         // remotePlayerTransform.eulerAngles = rotation;
         remotePlayer.m_FacingRight = this.m_FacingRight;
         remotePlayer.anim_walk = this.anim_walk;
-
     }
 
     void SendRequest(float x, float y, bool dir, bool anim_walk)
@@ -73,6 +76,7 @@ public class MoveRequest : BaseRequest
         string data = string.Format("{0},{1}|{2}|{3}", x, y, dir, anim_walk);
         base.SendRequest(data);
     }
+
     public override void OnResponse(string data)
     {
         string[] strs = data.Split('|');
@@ -83,5 +87,4 @@ public class MoveRequest : BaseRequest
         // rotation = Extension.ParseVector3(strs[1]);
         isSyncRemotePlayer = true;
     }
-
 }

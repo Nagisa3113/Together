@@ -877,7 +877,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 385601439}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.85, y: 1.304, z: 0}
+  m_LocalPosition: {x: -21.19, y: 1.304, z: 0}
   m_LocalScale: {x: 0.9504, y: 1.042441, z: 1}
   m_Children: []
   m_Father: {fileID: 543609804}
@@ -3462,10 +3462,10 @@ EdgeCollider2D:
   - {x: -16.954002, y: -5.0381823}
   - {x: -16.954, y: -4.25}
   - {x: -16.323, y: -4.25}
-  - {x: -16.3232, y: -5.49}
-  - {x: -15.46, y: -5.49}
-  - {x: -15.22, y: -5.26}
-  - {x: -15.22, y: -5.1}
+  - {x: -16.3232, y: -5.48}
+  - {x: -15.232861, y: -5.48}
+  - {x: -15.238204, y: -5.48}
+  - {x: -15.241927, y: -5.1}
   - {x: -8.45, y: -5.07}
   - {x: -8.45, y: -5.47}
   - {x: -3.779, y: -5.47}
@@ -8052,7 +8052,7 @@ GameObject:
   - component: {fileID: 2023607338613416510}
   - component: {fileID: 2023607338613416511}
   - component: {fileID: 323512016}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Movable Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}

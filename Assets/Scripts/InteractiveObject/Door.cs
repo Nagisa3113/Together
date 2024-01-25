@@ -27,7 +27,6 @@ public class Door : MonoBehaviour
                 this.gameObject.SetActive(false);
             }
         }
-
     }
 
     public void RayDoor(RayColor rayColor)
@@ -37,6 +36,4 @@ public class Door : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
-
 }

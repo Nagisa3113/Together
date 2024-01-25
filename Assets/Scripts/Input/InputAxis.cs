@@ -5,23 +5,24 @@ using UnityEngine;
 [System.Serializable]
 public class InputAxis
 {
-
-    [Header("缓冲帧")]
-    public float bufferCounter;
+    [Header("缓冲帧")] public float bufferCounter;
     public float speedBuffer = 15;
     public float slowBuffer = 8;
 
     bool isStop;
     int forward;
 
-    [Header("加速曲线")]
-    public AnimationCurve moveCurve, stopCurve;
+    [Header("加速曲线")] public AnimationCurve moveCurve, stopCurve;
 
     public InputButton posButton, negButton;
 
     public float Value { get; protected set; }
     public bool ReceivingInput { get; protected set; }
-    public bool Enabled { get { return m_Enabled; } }
+
+    public bool Enabled
+    {
+        get { return m_Enabled; }
+    }
 
     protected bool m_Enabled = true;
     protected bool m_GettingInput = true;
@@ -45,11 +46,11 @@ public class InputAxis
             return;
         }
 
-        Value = isStop ? stopCurve.Evaluate(bufferCounter / slowBuffer) :
-            moveCurve.Evaluate(bufferCounter / speedBuffer);
+        Value = isStop
+            ? stopCurve.Evaluate(bufferCounter / slowBuffer)
+            : moveCurve.Evaluate(bufferCounter / speedBuffer);
 
         Value *= forward;
-
     }
 
     public void AxisFiexedUpdate()
@@ -61,6 +62,7 @@ public class InputAxis
             {
                 bufferCounter = slowBuffer;
             }
+
             if (bufferCounter > 0)
                 bufferCounter--;
         }
@@ -72,11 +74,9 @@ public class InputAxis
             {
                 bufferCounter++;
             }
-            if(posButton.Held) forward=1;
-            else if (negButton.Held) forward=-1;
+
+            if (posButton.Held) forward = 1;
+            else if (negButton.Held) forward = -1;
         }
-
-
     }
 }
-

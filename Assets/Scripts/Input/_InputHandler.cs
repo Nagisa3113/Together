@@ -5,14 +5,14 @@ using UnityEngine;
 public class _InputHandler : MonoBehaviour
 {
     protected static _InputHandler s_Instance;
+
     public static _InputHandler Instance
     {
         get { return s_Instance; }
     }
 
 
-    [SerializeField]
-    int jumpBuffer = 18, shootBuffer = 10;
+    [SerializeField] int jumpBuffer = 18, shootBuffer = 10;
 
     int jumpCounter, shootCounter;
 
@@ -21,6 +21,7 @@ public class _InputHandler : MonoBehaviour
     {
         get { return shootCounter > 0; }
     }
+
     public bool Jump
     {
         get { return jumpCounter > 0; }
@@ -29,20 +30,21 @@ public class _InputHandler : MonoBehaviour
 
     public InputButton JumpButton = new InputButton(ButtonType.JumpButton, keyDict[ButtonType.JumpButton]);
     public InputButton ShootButton = new InputButton(ButtonType.ShootButton, keyDict[ButtonType.ShootButton]);
+
     public InputAxis HorizontalAxis = new InputAxis(
         new InputButton(ButtonType.RightButton, keyDict[ButtonType.RightButton]),
         new InputButton(ButtonType.LeftButton, keyDict[ButtonType.LeftButton])
-     );
+    );
 
 
-    [SerializeField]
-    protected static readonly Dictionary<ButtonType, KeyCode> keyDict = new Dictionary<ButtonType, KeyCode>
-    {
-        {ButtonType.LeftButton,KeyCode.A},
-        {ButtonType.RightButton,KeyCode.D},
-        {ButtonType.JumpButton,KeyCode.J},
-        {ButtonType.ShootButton,KeyCode.K},
-    };
+    [SerializeField] protected static readonly Dictionary<ButtonType, KeyCode> keyDict =
+        new Dictionary<ButtonType, KeyCode>
+        {
+            { ButtonType.LeftButton, KeyCode.A },
+            { ButtonType.RightButton, KeyCode.D },
+            { ButtonType.JumpButton, KeyCode.J },
+            { ButtonType.ShootButton, KeyCode.K },
+        };
 
 
     void Awake()
@@ -51,7 +53,7 @@ public class _InputHandler : MonoBehaviour
             s_Instance = this;
         else
             throw new UnityException("There cannot be more than one PlayerInput script.  " +
-                "The instances are " + s_Instance.name + " and " + name + ".");
+                                     "The instances are " + s_Instance.name + " and " + name + ".");
     }
 
     public void Update()
@@ -63,6 +65,7 @@ public class _InputHandler : MonoBehaviour
         {
             jumpCounter = jumpBuffer;
         }
+
         if (ShootButton.Held)
         {
             shootCounter = shootBuffer;
@@ -83,6 +86,5 @@ public class _InputHandler : MonoBehaviour
         {
             shootCounter--;
         }
-
     }
 }

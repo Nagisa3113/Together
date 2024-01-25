@@ -5,10 +5,8 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class PlayerLight : MonoBehaviour
 {
-    [Header("光圈开始增大的距离")]
-    [SerializeField] float lightDistance = 5f;
-    [Header("光圈可以增大的范围")]
-    [SerializeField] float deltaLightRadius = 3f;
+    [Header("光圈开始增大的距离")] [SerializeField] float lightDistance = 5f;
+    [Header("光圈可以增大的范围")] [SerializeField] float deltaLightRadius = 3f;
     public Light2D light2D;
 
     float lightOutRadiousNormal;
@@ -54,7 +52,5 @@ public class PlayerLight : MonoBehaviour
         {
             lineRenderer.enabled = false;
         }
-
     }
-
 }

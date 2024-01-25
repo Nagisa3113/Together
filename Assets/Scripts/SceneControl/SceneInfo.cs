@@ -26,6 +26,7 @@ public class SceneInfo : MonoBehaviour
             p1.transform.position = savePoints[0].P1Pos;
             p2.transform.position = savePoints[0].P2Pos;
         }
+
         p1.GetComponentInChildren<Light2D>().intensity = this.intensity;
         p2.GetComponentInChildren<Light2D>().intensity = this.intensity;
         var facade = GameObject.Find("GameFacade").GetComponent<GameFacade>();
@@ -36,6 +37,4 @@ public class SceneInfo : MonoBehaviour
         targetGroup.m_Targets[0].target = p1.transform;
         targetGroup.m_Targets[1].target = p2.transform;
     }
-
-
 }

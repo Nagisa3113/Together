@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
 {
-
     #region param
+
     //public event Action<RaycastHit2D> onControllerCollidedEvent;
     public event Action<Collider2D> OnInteractionEvent;
 
@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [Header("跳跃速度")]
     // [SerializeField] 
     float m_JumpVelcoity = 13f;
+
     [Header("移动速度")]
     // [SerializeField] 
     float m_MoveSpeed = 5f;
@@ -53,11 +54,7 @@ public class PlayerController : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
 
-        OnInteractionEvent += (collider2D) =>
-        {
-            collider2D.GetComponent<IInteractive>()?.Interactive();
-        };
-
+        OnInteractionEvent += (collider2D) => { collider2D.GetComponent<IInteractive>()?.Interactive(); };
     }
 
     void Update()
@@ -73,7 +70,6 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-
         CheckGround();
         if (isLocalPlayer)
         {
@@ -106,9 +102,8 @@ public class PlayerController : MonoBehaviour
         }
 
         Debug.DrawLine(this.transform.position + offset,
-        this.transform.position + offset + new Vector3(0, circle, 0));
+            this.transform.position + offset + new Vector3(0, circle, 0));
     }
-
 
 
     void Shoot(bool shoot)
@@ -145,8 +140,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
-
     public void RemoteShoot()
     {
         playerBullet.Spawn();
@@ -154,12 +147,10 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
     #region MonoBehavior
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-
         if (collision.gameObject.CompareTag("Trampoline") && Mathf.Approximately(collision.contacts[0].normal.y, 1))
         {
             m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_JumpVelcoity * 1.5f);
@@ -186,7 +177,6 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D collision)
     {
-
         if (collision.gameObject.CompareTag("Pedal"))
         {
             this.transform.parent = null;
@@ -199,8 +189,5 @@ public class PlayerController : MonoBehaviour
         OnInteractionEvent?.Invoke(collider2D);
     }
 
-
-
     #endregion
-
 }

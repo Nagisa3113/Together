@@ -5,7 +5,6 @@ using Common;
 
 public class ShootReqest : BaseRequest
 {
-
     Transform remotePlayerTransform;
 
     bool isSyncRemotePlayer = false;
@@ -38,8 +37,9 @@ public class ShootReqest : BaseRequest
 
     public override void SendRequest()
     {
-        base.SendRequest("shoot");//可以省略
+        base.SendRequest("shoot"); //可以省略
     }
+
     public override void OnResponse(string data)
     {
         isSyncRemotePlayer = true;

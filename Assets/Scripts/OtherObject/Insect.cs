@@ -33,7 +33,6 @@ public class Insect : MonoBehaviour
         {
             tarPos = insectHome.points[index].position;
             StartCoroutine(MoveToLight());
-
         }
     }
 
@@ -55,6 +54,7 @@ public class Insect : MonoBehaviour
                     StopAllCoroutines();
                     StartCoroutine(MoveToLight());
                 }
+
                 break;
             case InsectStatus.MoveToApple:
                 if (!insectHome.hasApple)
@@ -63,6 +63,7 @@ public class Insect : MonoBehaviour
                     StopAllCoroutines();
                     StartCoroutine(MoveToLight());
                 }
+
                 break;
             case InsectStatus.MoveToLight:
                 if (insectHome.hasApple)
@@ -71,6 +72,7 @@ public class Insect : MonoBehaviour
                     StopAllCoroutines();
                     StartCoroutine(MoveToApple());
                 }
+
                 break;
         }
 
@@ -89,8 +91,6 @@ public class Insect : MonoBehaviour
                 insectHome.light2Ds[index].enabled = false;
             }
         }
-
-
     }
 
     IEnumerator MoveToApple()
@@ -100,10 +100,12 @@ public class Insect : MonoBehaviour
         while (insectHome.hasApple)
         {
             this.GetComponent<Collider2D>().enabled = false;
-            this.transform.position = Vector3.MoveTowards(transform.position, insectHome.apple.position, speed * Time.deltaTime);
+            this.transform.position =
+                Vector3.MoveTowards(transform.position, insectHome.apple.position, speed * Time.deltaTime);
             //appleLight.intensity -= 0.3f * Time.deltaTime;
             yield return 0;
         }
+
         this.GetComponent<Collider2D>().enabled = true;
 
 
@@ -113,8 +115,6 @@ public class Insect : MonoBehaviour
             insectHome.hasApple = false;
             insectHome.ResetApple();
         }
-
-
     }
 
 
@@ -133,8 +133,7 @@ public class Insect : MonoBehaviour
             this.transform.position = Vector3.MoveTowards(transform.position, tarPos, speed * Time.deltaTime);
             yield return 0;
         }
+
         status = InsectStatus.Idle;
-
     }
-
 }

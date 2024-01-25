@@ -13,7 +13,6 @@ public class Drop : MonoBehaviour
         rg = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         tf = this.transform.position;
-
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -30,7 +29,5 @@ public class Drop : MonoBehaviour
         yield return new WaitForSeconds(s);
         sr.enabled = true;
         rg.gravityScale = 1;
-
     }
-
 }

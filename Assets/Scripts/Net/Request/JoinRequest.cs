@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
+
 public class JoinRequest : BaseRequest
 {
     public override void Awake()
@@ -13,7 +14,7 @@ public class JoinRequest : BaseRequest
 
     void Start()
     {
-        base.SendRequest("Join");//可以省略
+        base.SendRequest("Join"); //可以省略
     }
 
     public override void OnResponse(string data)
@@ -21,7 +22,7 @@ public class JoinRequest : BaseRequest
         Debug.Log(data);
 
         ReturnCode returnCode =
-        (ReturnCode)Enum.Parse(typeof(ReturnCode), data);
+            (ReturnCode)Enum.Parse(typeof(ReturnCode), data);
 
         if (returnCode == ReturnCode.Fail)
         {
@@ -29,7 +30,6 @@ public class JoinRequest : BaseRequest
             Debug.Log("已经连接第一名玩家");
             PlayerManager.Instance.p1.isLocalPlayer = false;
             PlayerManager.Instance.p2.isLocalPlayer = true;
-
         }
         else if (returnCode == ReturnCode.Success)
         {
@@ -43,5 +43,4 @@ public class JoinRequest : BaseRequest
             Debug.LogError("没有得到Request Code");
         }
     }
-
 }

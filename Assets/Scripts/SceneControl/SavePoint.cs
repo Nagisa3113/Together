@@ -13,17 +13,12 @@ public class SavePoint : MonoBehaviour, IInteractive
 
     public Vector3 P1Pos
     {
-        get
-        {
-            return this.transform.position + t1;
-        }
+        get { return this.transform.position + t1; }
     }
+
     public Vector3 P2Pos
     {
-        get
-        {
-            return this.transform.position + t2;
-        }
+        get { return this.transform.position + t2; }
     }
 
     private void Start()
@@ -43,7 +38,4 @@ public class SavePoint : MonoBehaviour, IInteractive
     {
         Debug.DrawLine(this.transform.position + t1, this.transform.position + t2);
     }
-
-
-
 }
