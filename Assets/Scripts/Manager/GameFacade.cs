@@ -51,17 +51,16 @@ public class GameFacade : MonoBehaviour
         //Screen.SetResolution(640, 480, false);
     }
 
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before
-    /// any of the Update methods is called the first time.
-    /// </summary>
     void Start()
     {
         foreach (MovableObject m in movableObjects)
         {
             m.StartCoroutine(m.Move());
         }
+
+        StartCoroutine(BeforeGameFadeIn());
     }
+
 
     void Update()
     {
@@ -158,6 +157,20 @@ public class GameFacade : MonoBehaviour
     }
 
 
+    IEnumerator BeforeGameFadeIn()
+    {
+        Image blackground = GetComponentInChildren<Image>();
+        float timer = 0;
+        Color color = blackground.color;
+        while (timer < 2.5f)
+        {
+            color.a = Mathf.Lerp(1f, 0f, timer / 2.5f);
+            blackground.color = color;
+            timer += Time.fixedDeltaTime;
+            yield return 0;
+        }
+    }
+
     IEnumerator Next()
     {
         Image blackground = GetComponentInChildren<Image>();
@@ -171,13 +184,10 @@ public class GameFacade : MonoBehaviour
             yield return 0;
         }
 
-        playerMng.p1.enabled = false;
-        playerMng.p2.enabled = false;
         SceneManager.LoadScene(1);
+
         yield return new WaitForSeconds(1);
 
-        playerMng.p1.enabled = true;
-        playerMng.p2.enabled = true;
         timer = 0;
         while (timer < 1.5f)
         {

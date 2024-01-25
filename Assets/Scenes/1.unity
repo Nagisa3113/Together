@@ -662,7 +662,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.121704936, y: 0.2529552}
+  m_Offset: {x: 0.14011878, y: 0.45149967}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -673,7 +673,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.43659, y: 1.0440896}
+  m_Size: {x: 1.3997623, y: 0.6470006}
   m_EdgeRadius: 0
 --- !u!212 &111747463
 SpriteRenderer:
@@ -2350,7 +2350,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -19.161053, y: 2.3282132, z: -10}
+  m_LocalPosition: {x: -19.163963, y: 2.3282132, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 615978935}
@@ -6440,7 +6440,7 @@ PrefabInstance:
     - target: {fileID: 263312988607443964, guid: 268d9a127a0e54f5dbd1b1c5a4fb09eb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.19
+      value: 16.89
       objectReference: {fileID: 0}
     - target: {fileID: 263312988607443964, guid: 268d9a127a0e54f5dbd1b1c5a4fb09eb,
         type: 3}
@@ -6520,7 +6520,7 @@ PrefabInstance:
     - target: {fileID: 263312988607443966, guid: 268d9a127a0e54f5dbd1b1c5a4fb09eb,
         type: 3}
       propertyPath: index
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 263312988607443967, guid: 268d9a127a0e54f5dbd1b1c5a4fb09eb,
         type: 3}
@@ -8043,6 +8043,11 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4913134145223828062, guid: 46037532cbc638a1b90c4b9a46170d65,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5041571504303211919, guid: 46037532cbc638a1b90c4b9a46170d65,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -8643,7 +8648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 8061050382120417019}
-  timerCounter: 5
+  timerCounter: 4
 --- !u!61 &5444240489474989708
 BoxCollider2D:
   m_ObjectHideFlags: 0

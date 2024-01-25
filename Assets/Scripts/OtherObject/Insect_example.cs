@@ -6,6 +6,7 @@ public class Insect_example : MonoBehaviour
 {
     public Transform target;
     public float timerCounter = 6f;
+
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.CompareTag("Player"))
@@ -14,7 +15,6 @@ public class Insect_example : MonoBehaviour
             StartCoroutine(Generate());
             this.GetComponent<Collider2D>().enabled = false;
         }
-
     }
 
     IEnumerator Generate()
@@ -24,13 +24,8 @@ public class Insect_example : MonoBehaviour
         while (timer < timerCounter)
         {
             this.transform.position = Vector3.Lerp(vector, target.position, timer / timerCounter);
-            timer += Time.fixedDeltaTime;
+            timer += Time.deltaTime;
             yield return 0;
         }
-        this.GetComponent<Animator>().enabled = false;
-
-
     }
-
-
 }

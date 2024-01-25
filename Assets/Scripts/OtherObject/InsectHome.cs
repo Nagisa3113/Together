@@ -24,7 +24,6 @@ public class InsectHome : MonoBehaviour
     void Start()
     {
         applePos = apple.position;
-        // StartCoroutine(Generate());
     }
 
     void Update()
@@ -32,7 +31,8 @@ public class InsectHome : MonoBehaviour
         if (!isLoading && light2Ds[0].enabled && light2Ds[1].enabled && light2Ds[2].enabled && light2Ds[3].enabled)
         {
             isLoading = true;
-            GameFacade.Instance.NextLevel();
+            // this function will cause crash for unknown reason, use other trigger instead.
+            // GameFacade.Instance.NextLevel();
         }
     }
 
@@ -44,23 +44,6 @@ public class InsectHome : MonoBehaviour
             StartCoroutine(Generate());
         }
     }
-
-
-    // void OnTriggerStay2D(Collider2D collider)
-    // {
-    //     if (collider.CompareTag("Apple"))
-    //     {
-    //         hasApple = true;
-    //     }
-    // }
-    //
-    // void OnTriggerExit2D(Collider2D collider)
-    // {
-    //     if (collider.CompareTag("Apple"))
-    //     {
-    //         hasApple = false;
-    //     }
-    // }
 
     IEnumerator Generate()
     {
