@@ -5,7 +5,6 @@ using UnityEngine;
 // [ExecuteInEditMode]
 public class MovableObject : MonoBehaviour
 {
-
     public Vector3 tf1;
     public Vector3 tf2;
 
@@ -29,7 +28,6 @@ public class MovableObject : MonoBehaviour
         }
 
         StartCoroutine("Move");
-
     }
 
     void Update()
@@ -49,38 +47,29 @@ public class MovableObject : MonoBehaviour
     public IEnumerator Move()
     {
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
-        Animator animator=null;
+        Animator animator = null;
         try
         {
             animator = GetComponent<Animator>();
         }
-        catch(UnityException e)
+        catch (UnityException e)
         {
             Debug.Log(e);
         }
+
         while (true)
         {
             t = i > 1 ? -1 : i < 0 ? 1 : t;
-            if(animator!=null)
+            if (animator != null)
             {
                 sprite.flipX = t > 0;
             }
+
             i += t * Time.deltaTime * speed / Vector3.Distance(t1, t2);
-            this.transform.position = V3Lerp(t1, t2, Mathf.Clamp01(i));
+            this.transform.position = Vector3.Lerp(t1, t2, Mathf.Clamp01(i));
             yield return 0;
         }
     }
-
-
-    Vector3 V3Lerp(Vector3 v1, Vector3 v2, float t)
-    {
-        float x = Mathf.Lerp(t1.x, t2.x, t);
-        float y = Mathf.Lerp(t1.y, t2.y, t);
-        float z = Mathf.Lerp(t1.z, t2.z, t);
-
-        return new Vector3(x, y, z);
-    }
-
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -89,6 +78,4 @@ public class MovableObject : MonoBehaviour
             t = -t;
         }
     }
-
-
 }

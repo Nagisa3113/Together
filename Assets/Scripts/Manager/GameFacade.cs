@@ -5,13 +5,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Common;
+
 public class GameFacade : MonoBehaviour
 {
     //[HideInInspector]
     public List<MovableObject> movableObjects;
 
     static GameFacade _instance;
+
     public static GameFacade Instance;
+
     // {
     //     get
     //     {
@@ -42,7 +45,7 @@ public class GameFacade : MonoBehaviour
         Instance = this;
         clientMng = new ClientManager(this);
         requestMng = new RequestManager(this);
-        playerMng = new PlayerManager(this);//要在最后
+        playerMng = new PlayerManager(this); //要在最后
         DontDestroyOnLoad(this.gameObject);
 
         //Screen.SetResolution(640, 480, false);
@@ -73,6 +76,7 @@ public class GameFacade : MonoBehaviour
             NextLevel();
         }
     }
+
     public void NextLevel()
     {
         StartCoroutine(Next());
@@ -105,6 +109,7 @@ public class GameFacade : MonoBehaviour
     {
         requestMng.RemoveRequest(actionCode);
     }
+
     public void HandleReponse(ActionCode actionCode, string data)
     {
         requestMng.HandleReponse(actionCode, data);
@@ -120,6 +125,7 @@ public class GameFacade : MonoBehaviour
     {
         return playerMng.GetCurrentRoleGameObject();
     }
+
     public void EnterPlayingSync()
     {
         StartSyncSymble = true;
@@ -164,8 +170,14 @@ public class GameFacade : MonoBehaviour
             timer += Time.fixedDeltaTime;
             yield return 0;
         }
+
+        playerMng.p1.enabled = false;
+        playerMng.p2.enabled = false;
         SceneManager.LoadScene(1);
         yield return new WaitForSeconds(1);
+
+        playerMng.p1.enabled = true;
+        playerMng.p2.enabled = true;
         timer = 0;
         while (timer < 1.5f)
         {
@@ -188,6 +200,7 @@ public class GameFacade : MonoBehaviour
             timer += Time.fixedDeltaTime;
             yield return 0;
         }
+
         ResetPlayers();
         yield return new WaitForSeconds(1);
         timer = 0;
@@ -199,7 +212,6 @@ public class GameFacade : MonoBehaviour
             yield return 0;
         }
     }
-
 
 
     public void ResetPlayers()
@@ -217,7 +229,5 @@ public class GameFacade : MonoBehaviour
         // playerMng.p2.GetComponent<SpriteRenderer>().enabled = true;
         playerMng.p1.gameObject.SetActive(true);
         playerMng.p2.gameObject.SetActive(true);
-
     }
-
 }

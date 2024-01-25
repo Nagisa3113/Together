@@ -5,7 +5,7 @@ using UnityEngine;
 public class Insect_example : MonoBehaviour
 {
     public Transform target;
-    float timerCounter = 3f;
+    public float timerCounter = 6f;
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.CompareTag("Player"))

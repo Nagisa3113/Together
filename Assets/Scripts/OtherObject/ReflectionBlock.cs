@@ -7,8 +7,9 @@ public class ReflectionBlock : MonoBehaviour
 {
     bool isIn;
     public Transform block;
-
+    public int index;
     private Camera cCamera;
+    private float rotSpeed = 5f;
 
     private void Start()
     {
@@ -23,18 +24,35 @@ public class ReflectionBlock : MonoBehaviour
             cCamera.transform.position = new Vector3(6.5f, -3.3f, -10f);
             cCamera.orthographicSize = 10f;
         }
-
     }
+
     void OnTriggerStay2D(Collider2D collider2D)
     {
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (index == 0)
         {
-            block.transform.Rotate(0, 0, 3f * Time.deltaTime);
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                block.transform.Rotate(0, 0, rotSpeed * Time.deltaTime);
+            }
+
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                block.transform.Rotate(0, 0, -rotSpeed * Time.deltaTime);
+            }
         }
-        if (Input.GetKey(KeyCode.DownArrow))
+        else if (index == 1)
         {
-            block.transform.Rotate(0, 0, -3f * Time.deltaTime);
+            if (Input.GetKey(KeyCode.W))
+            {
+                block.transform.Rotate(0, 0, rotSpeed * Time.deltaTime);
+            }
+
+            if (Input.GetKey(KeyCode.S))
+            {
+                block.transform.Rotate(0, 0, -rotSpeed * Time.deltaTime);
+            }
         }
+
 
         cCamera.GetComponent<CinemachineBrain>().enabled = false;
         cCamera.transform.position = new Vector3(6.5f, -3.3f, -10f);
@@ -48,8 +66,4 @@ public class ReflectionBlock : MonoBehaviour
             cCamera.GetComponent<CinemachineBrain>().enabled = true;
         }
     }
-
-
-
-
 }

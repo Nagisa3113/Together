@@ -8,8 +8,7 @@ public class InsectHome : MonoBehaviour
     public GameObject Insect;
     public Transform insectPos;
 
-    [HideInInspector]
-    public Vector3 applePos;
+    [HideInInspector] public Vector3 applePos;
     public Transform apple;
     public bool hasApple;
 
@@ -19,7 +18,7 @@ public class InsectHome : MonoBehaviour
     float deltaTime = 4f;
 
     bool isStart;
-
+    private bool isLoading = false;
 
     // Start is called before the first frame update
     void Start()
@@ -27,45 +26,44 @@ public class InsectHome : MonoBehaviour
         applePos = apple.position;
         // StartCoroutine(Generate());
     }
+
     void Update()
     {
-        if (light2Ds[0].enabled && light2Ds[1].enabled && light2Ds[2].enabled && light2Ds[3].enabled)
+        if (!isLoading && light2Ds[0].enabled && light2Ds[1].enabled && light2Ds[2].enabled && light2Ds[3].enabled)
         {
+            isLoading = true;
             GameFacade.Instance.NextLevel();
         }
-
     }
+
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.CompareTag("Player") && isStart == false)
         {
             isStart = true;
             StartCoroutine(Generate());
-
-        }
-
-    }
-
-
-    void OnTriggerStay2D(Collider2D collider)
-    {
-        if (collider.CompareTag("Apple"))
-        {
-            hasApple = true;
         }
     }
 
-    void OnTriggerExit2D(Collider2D collider)
-    {
-        if (collider.CompareTag("Apple"))
-        {
-            hasApple = false;
-        }
-    }
+
+    // void OnTriggerStay2D(Collider2D collider)
+    // {
+    //     if (collider.CompareTag("Apple"))
+    //     {
+    //         hasApple = true;
+    //     }
+    // }
+    //
+    // void OnTriggerExit2D(Collider2D collider)
+    // {
+    //     if (collider.CompareTag("Apple"))
+    //     {
+    //         hasApple = false;
+    //     }
+    // }
 
     IEnumerator Generate()
     {
-
         while (nums < points.Count)
         {
             Insect ins = Instantiate(Insect).GetComponent<Insect>();
@@ -77,7 +75,6 @@ public class InsectHome : MonoBehaviour
 
             yield return new WaitForSeconds(deltaTime);
         }
-
     }
 
     public void ResetApple()
@@ -86,6 +83,4 @@ public class InsectHome : MonoBehaviour
         apple.transform.position = applePos;
         apple.gameObject.SetActive(true);
     }
-
-
 }
